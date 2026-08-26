@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Accolog Bottom Decoration</title>
+<title>Accolog Bottom Decoration - Nav Matched</title>
 <style>
   html, body{
     margin:0; padding:0;
@@ -18,9 +18,10 @@
     width:100%;
     height:100vh;
     overflow:hidden;
+    background:transparent;
   }
 
-  /* ---- Big soft blobs drifting slowly ---- */
+  /* ---- Big soft blobs drifting slowly, tuned to blend into #7E57C2 ---- */
   .blob{
     position:absolute;
     border-radius:50%;
@@ -29,22 +30,22 @@
   .b1{
     width:220px; height:220px;
     left:-60px; bottom:-90px;
-    background:radial-gradient(circle at 30% 30%, #9575CD, #4527A0);
-    opacity:.85;
+    background:radial-gradient(circle at 30% 30%, #9575CD, #7E57C2);
+    opacity:.9;
     animation: floatA 7s ease-in-out infinite;
   }
   .b2{
     width:160px; height:160px;
     right:-50px; bottom:-40px;
     background:radial-gradient(circle at 30% 30%, #B39DDB, #7E57C2);
-    opacity:.75;
+    opacity:.8;
     animation: floatB 8.5s ease-in-out infinite;
   }
   .b3{
     width:110px; height:110px;
     left:38%; bottom:-60px;
-    background:radial-gradient(circle at 30% 30%, #7E57C2, #4527A0);
-    opacity:.6;
+    background:radial-gradient(circle at 30% 30%, #9575CD, #7E57C2);
+    opacity:.65;
     animation: floatA 6.5s ease-in-out infinite reverse;
   }
   @keyframes floatA{
@@ -84,6 +85,15 @@
     0%{ transform:translateX(0); }
     100%{ transform:translateX(-50%); }
   }
+
+  /* ---- Solid fade strip: blends everything into the nav bar's solid colour ---- */
+  .navmatch{
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:120px;
+    background:linear-gradient(to bottom, rgba(126,87,194,0) 0%, rgba(126,87,194,0.55) 45%, #7E57C2 85%);
+    pointer-events:none;
+  }
 </style>
 </head>
 <body>
@@ -103,6 +113,8 @@
       <path d="M0 20 Q 50 0, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20"
             stroke="rgba(255,255,255,.25)" stroke-width="2" fill="none"/>
     </svg>
+
+    <div class="navmatch"></div>
   </div>
 
 </body>
