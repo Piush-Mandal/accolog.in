@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Accolog Bottom Decoration</title>
+<style>
+  html, body{
+    margin:0; padding:0;
+    width:100%; height:100%;
+    background:transparent;
+    overflow:hidden;
+  }
+  *{ box-sizing:border-box; }
+
+  .stage{
+    position:relative;
+    width:100%;
+    height:100vh;
+    overflow:hidden;
+  }
+
+  /* ---- Big soft blobs drifting slowly ---- */
+  .blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(2px);
+  }
+  .b1{
+    width:220px; height:220px;
+    left:-60px; bottom:-90px;
+    background:radial-gradient(circle at 30% 30%, #9575CD, #4527A0);
+    opacity:.85;
+    animation: floatA 7s ease-in-out infinite;
+  }
+  .b2{
+    width:160px; height:160px;
+    right:-50px; bottom:-40px;
+    background:radial-gradient(circle at 30% 30%, #B39DDB, #7E57C2);
+    opacity:.75;
+    animation: floatB 8.5s ease-in-out infinite;
+  }
+  .b3{
+    width:110px; height:110px;
+    left:38%; bottom:-60px;
+    background:radial-gradient(circle at 30% 30%, #7E57C2, #4527A0);
+    opacity:.6;
+    animation: floatA 6.5s ease-in-out infinite reverse;
+  }
+  @keyframes floatA{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(14px,-16px) scale(1.06); }
+  }
+  @keyframes floatB{
+    0%,100%{ transform:translate(0,0) scale(1); }
+    50%{ transform:translate(-16px,-10px) scale(1.08); }
+  }
+
+  /* ---- Rising bubbles ---- */
+  .bubble{
+    position:absolute;
+    bottom:-20px;
+    border-radius:50%;
+    background:rgba(255,255,255,.35);
+    animation: rise linear infinite;
+  }
+  @keyframes rise{
+    0%{ transform:translateY(0) translateX(0); opacity:0; }
+    12%{ opacity:1; }
+    88%{ opacity:1; }
+    100%{ transform:translateY(-260px) translateX(18px); opacity:0; }
+  }
+
+  /* ---- Gentle wave line on top of blobs ---- */
+  .wave{
+    position:absolute;
+    bottom:70px;
+    left:0;
+    width:200%;
+    height:40px;
+    animation: waveMove 6s linear infinite;
+  }
+  @keyframes waveMove{
+    0%{ transform:translateX(0); }
+    100%{ transform:translateX(-50%); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="stage">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+
+    <div class="bubble" style="width:10px;height:10px;left:15%;animation-duration:6s;animation-delay:0s;"></div>
+    <div class="bubble" style="width:6px;height:6px;left:32%;animation-duration:5s;animation-delay:1.2s;"></div>
+    <div class="bubble" style="width:8px;height:8px;left:55%;animation-duration:7s;animation-delay:.4s;"></div>
+    <div class="bubble" style="width:5px;height:5px;left:70%;animation-duration:5.5s;animation-delay:2s;"></div>
+    <div class="bubble" style="width:7px;height:7px;left:85%;animation-duration:6.5s;animation-delay:1s;"></div>
+
+    <svg class="wave" viewBox="0 0 800 40" preserveAspectRatio="none">
+      <path d="M0 20 Q 50 0, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20"
+            stroke="rgba(255,255,255,.25)" stroke-width="2" fill="none"/>
+    </svg>
+  </div>
+
+</body>
+</html>
