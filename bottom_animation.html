@@ -3,116 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Accolog Bottom Decoration - Nav Matched</title>
+<title>Accolog Bottom Nav-Bar Design</title>
 <style>
   html, body{
     margin:0; padding:0;
-    width:100%; height:100%;
-    background:transparent;
+    width:100%;
     overflow:hidden;
+    background:#F5F3FA;
   }
   *{ box-sizing:border-box; }
 
-  .stage{
+  /* Very thin bottom strip - fixed px only. This is a DECORATIVE design
+     meant to sit at the very bottom of the screen, its bottom edge
+     blending straight into the solid system navigation bar colour
+     (#5100CB), the same way the status-bar strip blends at the top. */
+  .bottom-strip{
     position:relative;
     width:100%;
-    height:100vh;
+    height:76px;
     overflow:hidden;
-    background:transparent;
+    background:#F5F3FA;
   }
 
-  /* ---- Big soft blobs drifting slowly, tuned to blend into #7E57C2 ---- */
-  .blob{
+  /* Soft wavy crest rising up from the bottom */
+  .bottom-strip svg{
     position:absolute;
-    border-radius:50%;
-    filter:blur(2px);
-  }
-  .b1{
-    width:220px; height:220px;
-    left:-60px; bottom:-90px;
-    background:radial-gradient(circle at 30% 30%, #9575CD, #7E57C2);
-    opacity:.9;
-    animation: floatA 7s ease-in-out infinite;
-  }
-  .b2{
-    width:160px; height:160px;
-    right:-50px; bottom:-40px;
-    background:radial-gradient(circle at 30% 30%, #B39DDB, #7E57C2);
-    opacity:.8;
-    animation: floatB 8.5s ease-in-out infinite;
-  }
-  .b3{
-    width:110px; height:110px;
-    left:38%; bottom:-60px;
-    background:radial-gradient(circle at 30% 30%, #9575CD, #7E57C2);
-    opacity:.65;
-    animation: floatA 6.5s ease-in-out infinite reverse;
-  }
-  @keyframes floatA{
-    0%,100%{ transform:translate(0,0) scale(1); }
-    50%{ transform:translate(14px,-16px) scale(1.06); }
-  }
-  @keyframes floatB{
-    0%,100%{ transform:translate(0,0) scale(1); }
-    50%{ transform:translate(-16px,-10px) scale(1.08); }
-  }
-
-  /* ---- Rising bubbles ---- */
-  .bubble{
-    position:absolute;
-    bottom:-20px;
-    border-radius:50%;
-    background:rgba(255,255,255,.35);
-    animation: rise linear infinite;
-  }
-  @keyframes rise{
-    0%{ transform:translateY(0) translateX(0); opacity:0; }
-    12%{ opacity:1; }
-    88%{ opacity:1; }
-    100%{ transform:translateY(-260px) translateX(18px); opacity:0; }
-  }
-
-  /* ---- Gentle wave line on top of blobs ---- */
-  .wave{
-    position:absolute;
-    bottom:70px;
+    bottom:0;
     left:0;
     width:200%;
-    height:40px;
-    animation: waveMove 6s linear infinite;
+    height:100%;
+    animation: waveMove 11s linear infinite;
   }
   @keyframes waveMove{
     0%{ transform:translateX(0); }
     100%{ transform:translateX(-50%); }
   }
 
-  /* ---- Solid fade strip: blends everything into the nav bar's solid colour ---- */
+  /* Small floating accents inside the wave */
+  .dot{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,.45);
+    animation: dotFloat ease-in-out infinite;
+  }
+  @keyframes dotFloat{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(-3px); }
+  }
+
+  /* Solid hand-off block - guarantees a perfect, seamless colour match
+     into the real system navigation bar sitting directly below this. */
   .navmatch{
     position:absolute;
     left:0; right:0; bottom:0;
-    height:120px;
-    background:linear-gradient(to bottom, rgba(126,87,194,0) 0%, rgba(126,87,194,0.55) 45%, #7E57C2 85%);
-    pointer-events:none;
+    height:26px;
+    background:#5100CB;
+  }
+
+  /* preview backdrop so the thin strip is visible in context */
+  .preview-body{
+    height:260px;
+    background:linear-gradient(180deg,#EDE7F6,#F5F3FA);
   }
 </style>
 </head>
 <body>
 
-  <div class="stage">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
+  <div class="preview-body"></div>
 
-    <div class="bubble" style="width:10px;height:10px;left:15%;animation-duration:6s;animation-delay:0s;"></div>
-    <div class="bubble" style="width:6px;height:6px;left:32%;animation-duration:5s;animation-delay:1.2s;"></div>
-    <div class="bubble" style="width:8px;height:8px;left:55%;animation-duration:7s;animation-delay:.4s;"></div>
-    <div class="bubble" style="width:5px;height:5px;left:70%;animation-duration:5.5s;animation-delay:2s;"></div>
-    <div class="bubble" style="width:7px;height:7px;left:85%;animation-duration:6.5s;animation-delay:1s;"></div>
-
-    <svg class="wave" viewBox="0 0 800 40" preserveAspectRatio="none">
-      <path d="M0 20 Q 50 0, 100 20 T 200 20 T 300 20 T 400 20 T 500 20 T 600 20 T 700 20 T 800 20"
-            stroke="rgba(255,255,255,.25)" stroke-width="2" fill="none"/>
+  <div class="bottom-strip">
+    <svg viewBox="0 0 800 76" preserveAspectRatio="none">
+      <path d="M0,40 C100,15 200,55 320,32 C440,10 540,52 660,28
+               C740,14 780,28 800,32
+               L1600,32 C1720,28 1760,14 1840,28
+               C1960,52 2060,10 2180,32
+               C2300,55 2400,15 2500,40
+               L2500,76 L0,76 Z"
+            fill="#5100CB"/>
     </svg>
+
+    <div class="dot" style="width:8px;height:8px;left:18%;bottom:20px;animation-duration:3.5s;"></div>
+    <div class="dot" style="width:5px;height:5px;left:44%;bottom:12px;animation-duration:4.2s;animation-delay:.5s;"></div>
+    <div class="dot" style="width:7px;height:7px;left:68%;bottom:24px;animation-duration:3.8s;animation-delay:1s;"></div>
+    <div class="dot" style="width:4px;height:4px;left:86%;bottom:14px;animation-duration:4.5s;animation-delay:.2s;"></div>
 
     <div class="navmatch"></div>
   </div>
