@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>Accolog Welcome Back Screen</title>
+<title>Accolog Welcome Back Banner</title>
 <style>
   @font-face{
     font-family: 'Zen Dots';
@@ -18,77 +18,139 @@
 
   html, body{
     margin:0; padding:0;
-    width:100%; height:100%;
+    width:100%;
     overflow:hidden;
+    background:#5100CB;
   }
   *{ box-sizing:border-box; }
 
+  /* Fixed 330px height (kept as-is, confirmed good).
+     Width is 100% with NO max-width / centering, so it stretches to
+     fill whatever container it's placed in - phone screen or otherwise. */
   .screen{
     position:relative;
     width:100%;
-    height:100vh;
-    background:#7E57C2;
+    height:330px;
+    background:#5100CB;
     overflow:hidden;
   }
 
-  /* ---- Top-right circle cluster (matches status bar #4527A0 area) ---- */
-  .circle{
+  .statusmatch{
     position:absolute;
-    border-radius:50%;
+    left:0; right:0; top:0;
+    height:36px;
+    background:linear-gradient(to bottom, #31007A 0%, rgba(49,0,122,.65) 55%, rgba(49,0,122,0) 100%);
+    pointer-events:none;
+    z-index:5;
   }
-  .c1{ width:220px; height:220px; right:-70px; top:-90px; background:#8E67C9; opacity:.55;
+
+  /* Diagonal highlight sheen across the top - adds dimension */
+  .sheen{
+    position:absolute;
+    top:-40px; right:-60px;
+    width:340px; height:220px;
+    background:linear-gradient(135deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,0) 60%);
+    transform:rotate(-8deg);
+    pointer-events:none;
+  }
+
+  .circle{ position:absolute; border-radius:50%; }
+  .c1{ width:120px; height:120px; right:-36px; top:-46px; background:#9766E0; opacity:.55;
        animation: driftA 8s ease-in-out infinite; }
-  .c2{ width:140px; height:140px; right:20px; top:-40px; background:#4527A0; opacity:.45;
+  .c2{ width:74px; height:74px; right:10px; top:-22px; background:#31007A; opacity:.5;
        animation: driftB 7s ease-in-out infinite; }
-  .c3{ width:70px; height:70px; right:90px; top:80px; background:#4527A0; opacity:.55;
+  .c3{ width:36px; height:36px; right:48px; top:34px; background:#31007A; opacity:.6;
        animation: driftA 6s ease-in-out infinite reverse; }
-  .c4{ width:34px; height:34px; right:200px; top:30px; background:#9575CD; opacity:.5;
+  .c4{ width:18px; height:18px; right:104px; top:14px; background:#C2A6ED; opacity:.55;
        animation: driftB 5s ease-in-out infinite; }
-  .c5{ width:46px; height:46px; right:40px; top:150px; background:#4527A0; opacity:.35;
+  .c5{ width:26px; height:26px; right:22px; top:68px; background:#31007A; opacity:.4;
        animation: driftA 9s ease-in-out infinite; }
   @keyframes driftA{
     0%,100%{ transform:translate(0,0); }
-    50%{ transform:translate(-10px,10px); }
+    50%{ transform:translate(-4px,4px); }
   }
   @keyframes driftB{
     0%,100%{ transform:translate(0,0); }
-    50%{ transform:translate(8px,10px); }
+    50%{ transform:translate(4px,4px); }
   }
 
-  /* ---- Welcome text ---- */
+  /* Extra design layer: thin outline rings for depth, layered over the cluster */
+  .ring{
+    position:absolute;
+    border-radius:50%;
+    border:1.5px solid rgba(255,255,255,.28);
+    animation: ringPulse 5s ease-in-out infinite;
+  }
+  .r1{ width:150px; height:150px; right:-48px; top:-62px; animation-delay:0s; }
+  .r2{ width:56px; height:56px; right:64px; top:8px; animation-delay:1.2s; }
+  @keyframes ringPulse{
+    0%,100%{ opacity:.5; transform:scale(1); }
+    50%{ opacity:.9; transform:scale(1.04); }
+  }
+
+  /* Extra design layer: small sprinkle dots scattered for texture */
+  .sprinkle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255,255,255,.55);
+    animation: twinkle ease-in-out infinite;
+  }
+  @keyframes twinkle{
+    0%,100%{ opacity:.25; }
+    50%{ opacity:.85; }
+  }
+
+  /* Small balancing accent bottom-left, echoes the top-right cluster */
+  .accent-bl{
+    position:absolute;
+    left:-16px; bottom:56px;
+    width:46px; height:46px;
+    border-radius:50%;
+    background:#31007A;
+    opacity:.3;
+    animation: driftB 7.5s ease-in-out infinite;
+  }
+  .accent-bl-ring{
+    position:absolute;
+    left:-4px; bottom:44px;
+    width:26px; height:26px;
+    border-radius:50%;
+    border:1.5px solid rgba(255,255,255,.25);
+  }
+
   .text-block{
     position:absolute;
-    left:32px;
-    top:42%;
+    left:24px;
+    top:112px;
   }
   .welcome-line1, .welcome-line2{
     font-family:'Zen Dots', sans-serif;
-    font-size:30px;
+    font-size:24px;
     color:#FFFFFF;
-    line-height:1.35;
-    opacity:0;
-    transform:translateY(14px);
+    line-height:1.25;
   }
-  .welcome-line1{ animation: fadeUp 650ms ease-out 200ms forwards; }
-  .welcome-line2{ animation: fadeUp 650ms ease-out 400ms forwards; }
-  @keyframes fadeUp{ to{ opacity:1; transform:translateY(0); } }
-
   .subtitle{
-    margin-top:10px;
+    margin-top:8px;
     font-family:'IBM Plex Serif', serif;
-    font-size:13.5px;
+    font-size:12px;
     color:rgba(255,255,255,.8);
     letter-spacing:.3px;
-    opacity:0;
-    transform:translateY(10px);
-    animation: fadeUp 650ms ease-out 600ms forwards;
+  }
+  .welcome-line1{ animation: loopFade 6s ease-in-out infinite; animation-delay:0s; }
+  .welcome-line2{ animation: loopFade 6s ease-in-out infinite; animation-delay:0.15s; }
+  .subtitle{ animation: loopFade 6s ease-in-out infinite; animation-delay:0.3s; }
+  @keyframes loopFade{
+    0%{ opacity:0; transform:translateY(8px); }
+    12%{ opacity:1; transform:translateY(0); }
+    80%{ opacity:1; transform:translateY(0); }
+    92%{ opacity:0; transform:translateY(-5px); }
+    100%{ opacity:0; transform:translateY(8px); }
   }
 
-  /* ---- Bottom wave with floating accent circles inside it ---- */
   .wave-wrap{
     position:absolute;
     left:0; right:0; bottom:0;
-    height:150px;
+    height:64px;
     overflow:hidden;
   }
   .wave-wrap svg{
@@ -96,33 +158,22 @@
     bottom:-2px;
     left:0;
     width:200%;
-    height:150px;
+    height:100%;
     animation: waveMove 10s linear infinite;
   }
   @keyframes waveMove{
     0%{ transform:translateX(0); }
     100%{ transform:translateX(-50%); }
   }
-
   .wave-dot{
     position:absolute;
     border-radius:50%;
-    background:rgba(126,87,194,.55);
+    background:rgba(81,0,203,.5);
     animation: dotFloat ease-in-out infinite;
   }
   @keyframes dotFloat{
     0%,100%{ transform:translateY(0); }
-    50%{ transform:translateY(-6px); }
-  }
-
-  /* ---- Status bar match: blends the very top into the solid status bar colour ---- */
-  .statusmatch{
-    position:absolute;
-    left:0; right:0; top:0;
-    height:60px;
-    background:linear-gradient(to bottom, #4527A0 0%, rgba(69,39,160,.65) 55%, rgba(69,39,160,0) 100%);
-    pointer-events:none;
-    z-index:5;
+    50%{ transform:translateY(-4px); }
   }
 </style>
 </head>
@@ -130,11 +181,23 @@
 
   <div class="screen">
     <div class="statusmatch"></div>
+    <div class="sheen"></div>
+
     <div class="circle c1"></div>
     <div class="circle c2"></div>
     <div class="circle c3"></div>
     <div class="circle c4"></div>
     <div class="circle c5"></div>
+    <div class="ring r1"></div>
+    <div class="ring r2"></div>
+
+    <div class="sprinkle" style="width:4px;height:4px;left:60%;top:20px;animation-duration:3s;"></div>
+    <div class="sprinkle" style="width:3px;height:3px;left:50%;top:50px;animation-duration:3.6s;animation-delay:.6s;"></div>
+    <div class="sprinkle" style="width:3px;height:3px;left:70%;top:90px;animation-duration:2.8s;animation-delay:1.1s;"></div>
+    <div class="sprinkle" style="width:4px;height:4px;left:40%;top:14px;animation-duration:3.2s;animation-delay:.3s;"></div>
+
+    <div class="accent-bl"></div>
+    <div class="accent-bl-ring"></div>
 
     <div class="text-block">
       <div class="welcome-line1">Welcome</div>
@@ -149,9 +212,9 @@
                  L2500,150 L0,150 Z"
               fill="#F5F3FA"/>
       </svg>
-      <div class="wave-dot" style="width:18px;height:18px;left:22%;bottom:34px;animation-duration:4s;"></div>
-      <div class="wave-dot" style="width:12px;height:12px;left:65%;bottom:20px;animation-duration:5s;"></div>
-      <div class="wave-dot" style="width:22px;height:22px;left:80%;bottom:44px;animation-duration:4.5s;"></div>
+      <div class="wave-dot" style="width:14px;height:14px;left:22%;bottom:22px;animation-duration:4s;"></div>
+      <div class="wave-dot" style="width:9px;height:9px;left:65%;bottom:14px;animation-duration:5s;"></div>
+      <div class="wave-dot" style="width:16px;height:16px;left:80%;bottom:26px;animation-duration:4.5s;"></div>
     </div>
   </div>
 
